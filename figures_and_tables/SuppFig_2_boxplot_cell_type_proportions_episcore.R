@@ -1,4 +1,4 @@
-## script to plot EpiSCORE results
+## script to plot EpiSCORE results for Supp Figure 2
 library(ggpubr)
 library(ggplot2)
 library(tidyr)
@@ -9,10 +9,10 @@ setwd("~/90plus/")
 baseDir <- paste0("~/90plus/")
 
 ## load function to plot legend inside empty facet when using facet_wrap for plotting
-source("~/90plus/EPIC_R_Scripts/2022_final_scripts/functions/shift_legend.R")
+source("./functions/shift_legend.R")
 
 ## read in df with episcore cell type proportions
-targets <- readRDS("targets_incl_episcore.rds")
+targets <- readRDS("./targets_incl_episcore.rds")
 
 ## define colors
 col_brain <-
@@ -54,27 +54,23 @@ targets_long <- pivot_longer(targets, cols=c("Neurons", "Astrocytes", "Microglia
 targets_long$cell_type <- factor(targets_long$cell_type, levels = c("Neurons", "Astrocytes", "Microglia", "Endothelial cells","Olig/OPCs"))
 
 p <- ggplot(targets_long, aes(x=brain_region, y=proportion, color=brain_region))+
-  geom_boxplot(width=0.3, outlier.shape = NA, alpha=0.3)+
+  geom_boxplot(width=0.6, outlier.shape = NA, alpha=0.05)+
   geom_jitter(width=0.1, size=1)+
-  facet_wrap(~cell_type, nrow=2)+
+  facet_rep_wrap(~cell_type, nrow=2,repeat.tick.labels = 'left')+
   ylab("Cell type proportion") +
   scale_color_manual(values=col_brain)+
   theme_classic()+
   theme(
-    text = element_text(size = 16), 
+    text = element_text(size = 12), 
     axis.title.y=element_text(size = 12),
     axis.text.y=element_text(size = 12),
     axis.text.x=element_blank(),
-    axis.ticks.x=element_blank())+
+    axis.ticks.x=element_blank(),
+    strip.text = element_text(size = 12))+
   xlab("")+  
   guides(color=guide_legend(title="Brain region"))
-  #theme(axis.text.x = element_text(angle=45, vjust=0.1))
 
-pdf(width=10,height=8,paste0("./plots/final_figures/OR_2_episcore_proportions.pdf"),paper="a4")
-grid.draw(shift_legend(p))
-dev.off()
-
-png(paste0("./plots/final_figures/OR_2_episcore_proportions.png"),width=10,height=8, units ='in', res=800) 
+png(paste0("./plots/final_figures/Supp_Fig_2_episcore_proportions.png"),width=10,height=8, units ='in', res=800) 
 grid.draw(shift_legend(p))
 dev.off()
 
