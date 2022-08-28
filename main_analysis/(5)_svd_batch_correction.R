@@ -9,7 +9,7 @@ library(RnBeads.hg19)
 library(limma)
 library(tidyverse)
 
-setwd("~/ad_methylome/batch_correction/svd/scripts/")
+setwd("~/90plus/batch_correction/svd/scripts/")
 
 
 ## parameters to control the regions, cell types, biotypes, and traits to process
@@ -93,7 +93,7 @@ get_targets_file <- function(parameters){
     print_update("Retrieving targets for", parameters)
 
     # read in the targets data
-    targets_file <- paste0("~/ad_methylome/methylome_project/Methylome_Cohorts_Data/DATASETS/90PLUS/90PLUS_850k/90PLUS_850k_normalized/90PLUS_ewastools_filt_normalized_850k/90PLUS_ewastools_filt_normalized_850k_combined_all_regions/targets_incl_comorb.rds") 
+    targets_file <- paste0("~/90plus/data/targets_incl_comorb.rds") 
     targets <- readRDS(targets_file)
     dim(targets)
     head(targets)
@@ -151,14 +151,14 @@ save_biotype_mvals <- function(parameters){
     # get the correct mvals depending on cell type
     if (cell_type == "bulk"){
         ## load in the data
-        betas_file <- paste0("~/ad_methylome/methylome_project/Methylome_Cohorts_Data/DATASETS/90PLUS/90PLUS_850k/90PLUS_850k_normalized/90PLUS_ewastools_filt_normalized_850k/90PLUS_ewastools_filt_normalized_850k_separated_by_region/beta_90plus_ewasfilt_bmiq_orig_850k_", region, ".rds")
+        betas_file <- paste0("~/90plus/data/beta_90plus_ewasfilt_bmiq_orig_850k_", region, ".rds")
     
         # read in the files
         betas <- readRDS(betas_file)
 
     } else{
         # read in the kept celltypes
-        celltypes_file <- paste0("~/ad_methylome/deconvolution/output/90plus_850k_bmiq_normalized_episcore/", region, "celltypes_present.rds")
+        celltypes_file <- paste0("~/90plus/deconvolution/output/90plus_850k_bmiq_normalized_episcore/", region, "celltypes_present.rds")
         kept_celltypes <- readRDS(celltypes_file)
         kept_celltypes
 
@@ -167,7 +167,7 @@ save_biotype_mvals <- function(parameters){
 
 
         ## load in the data
-        betas_file <- paste0("~/ad_methylome/deconvolution/output/90plus_850k_bmiq_normalized_episcore/tca_tensor_", region, ".rds")
+        betas_file <- paste0("~/90plus/deconvolution/output/90plus_850k_bmiq_normalized_episcore/tca_tensor_", region, ".rds")
         betas_tensor <- readRDS(betas_file)
 
         length(betas_tensor)

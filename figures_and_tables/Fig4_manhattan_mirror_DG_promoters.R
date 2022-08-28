@@ -6,9 +6,9 @@ library(RnBeads)
 library(grid)
 library(ggpubr)
 
-setwd("O:/02182022_backup_Lena/90plus/")
+setwd("~/90plus/")
 baseDir <- getwd()
-saveDir <- paste0("O:/02182022_backup_Lena/90plus/")
+saveDir <- paste0("~/90plus/")
 
 ## get annotation from rnbeads
 anno_promoters <- rnb.annotation2data.frame(rnb.get.annotation("promoters"))

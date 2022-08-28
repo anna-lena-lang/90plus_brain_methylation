@@ -10,7 +10,7 @@ library(tidyverse)
 
 
 # set up save directory
-setwd("/home/eulalio/ad_methylome/deconvolution/scripts/")
+setwd("~/90plus/deconvolution/scripts/")
 savedir <- paste0("../output/02_pca/")
 dir.create(savedir, showWarnings=FALSE)
 
@@ -23,8 +23,8 @@ load_bulk <- function(region){
 
 
     # get methylation and targets file -- update these to match file names of uploaded data **
-    methylation_file <- paste0("~/ad_methylome/methylome_project/Methylome_Cohorts_Data/DATASETS/90PLUS/90PLUS_850k/90PLUS_850k_normalized/90PLUS_ewastools_filt_normalized_850k/90PLUS_ewastools_filt_normalized_850k_separated_by_region/beta_90plus_ewasfilt_bmiq_orig_850k_", region, ".rds")
-    targets_file <- paste0("~/ad_methylome/methylome_project/Methylome_Cohorts_Data/DATASETS/90PLUS/90PLUS_850k/90PLUS_850k_normalized/90PLUS_ewastools_filt_normalized_850k/90PLUS_ewastools_filt_normalized_850k_combined_all_regions/targets_incl_comorb.rds")
+    methylation_file <- paste0("~/90plus/data/beta_90plus_ewasfilt_bmiq_orig_850k_", region, ".rds")
+    targets_file <- paste0("~/90plus/data/targets_incl_comorb.rds")
 
 
     # Load data
@@ -60,7 +60,7 @@ load_celltype <- function(region, cell_type){
     print(paste("Loading cell type", cell_type, "in", region, Sys.time()))
 
     # read in the kept celltypes
-    celltypes_file <- paste0("~/ad_methylome/deconvolution/output/90plus_850k_bmiq_normalized_episcore/", region, "celltypes_present.rds")
+    celltypes_file <- paste0("~/90plus/deconvolution/output/90plus_850k_bmiq_normalized_episcore/", region, "celltypes_present.rds")
     kept_celltypes <- readRDS(celltypes_file)
     kept_celltypes
 
@@ -69,7 +69,7 @@ load_celltype <- function(region, cell_type){
 
 
     ## load in the deconvovled cell type data from TCA output
-    betas_file <- paste0("~/ad_methylome/deconvolution/output/90plus_850k_bmiq_normalized_episcore/tca_tensor_", region, ".rds")
+    betas_file <- paste0("~/90plus/deconvolution/output/90plus_850k_bmiq_normalized_episcore/tca_tensor_", region, ".rds")
     betas_tensor <- readRDS(betas_file)
 
 
@@ -230,7 +230,7 @@ plot_umap <- function(pcs, cell_type){
     # plot umap on the pcs
 
     # get the brain region data
-    targets_file <- paste0("~/ad_methylome/methylome_project/Methylome_Cohorts_Data/DATASETS/90PLUS/90PLUS_850k/90PLUS_850k_normalized/90PLUS_ewastools_filt_normalized_850k/90PLUS_ewastools_filt_normalized_850k_combined_all_regions/targets_incl_comorb.rds")
+    targets_file <- paste0("~/90plus/data/targets_incl_comorb.rds")
     targets <- readRDS(targets_file)
     head(targets)
     dim(targets)

@@ -1,18 +1,18 @@
 # code to plot Table 1
-# only used to later copy paste values in excel sheet
+## only used to later copy paste values in excel sheet
 
 library(boot) 
 library(dplyr)
 library(table1)
 
-# set working directory
+## set working directory
 setwd("O:/02182022_backup_Lena/90plus")
 brainregions <- c("MFG", "CG", "CA1", "DEN", "ERC", "LOC", "SN", "CBL")
 
-# load samplesheet
+## load samplesheet
 targets <- readRDS("targets_incl_comorb.rds")
 
-# format labels
+## format labels
 targets$conf_diag <- targets$conf_diag %>% as.character() %>% as.factor()
 targets$conf_diag <- sub("normal", "Normal",targets$conf_diag)
 targets$conf_diag <- sub("demented", "Demented",targets$conf_diag)
@@ -33,7 +33,7 @@ targets$niaaaascore <- targets$niaaaascore %>% as.character() %>% as.factor()
 targets$niaaacscore <- targets$niaaacscore %>% as.character() %>% as.factor()
 targets$niaaabscore <- targets$niaaabscore %>% as.character() %>% as.factor()
 
-# functions to handle continuous and categorical data
+## functions to handle continuous and categorical data
 my.render.cont <- function(x) {
   with(stats.apply.rounding(stats.default(x), digits=2), c("",
                                                            "Mean (SD)"=sprintf("%s (&plusmn; %s)", MEAN, SD)))
@@ -43,10 +43,10 @@ my.render.cat <- function(x) {
                                                   sprintf("%d (%.2f %%)", FREQ, PCT))))
 }
 
-# subset to keep one entry for each individual case
+## subset to keep one entry for each individual case
 targets_47 <- targets[!(duplicated(targets$sample_source)),]
 
-# add labels
+## add labels
 labels <- list(
   variables=list(gender = "Sex",
                  agedeath = "Age at death",

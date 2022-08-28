@@ -1,4 +1,4 @@
-## script for cel type deconvolution using Tensor Composition Analysis
+## script for cell type deconvolution using Tensor Composition Analysis
 
 
 library(TCA)
@@ -10,7 +10,7 @@ library(RhpcBLASctl)
 blas_set_num_threads(16) #limit number of threads for openblas to 16
 
 
-setwd("~/ad_methylome/deconvolution/scripts/")
+setwd("~/90plus/deconvolution/scripts/")
 
 ### things to input at runtime
 ### output_folder = where to output the tca results
@@ -26,8 +26,8 @@ decomposition_file <- "../data/episcore/targets_incl_episcore.rds"
 ## loads the methylation data and the phenotype data
 load_data <- function(region){
     # get methylation and targets file
-    methylation_file <- paste0("~/ad_methylome/methylome_project/Methylome_Cohorts_Data/DATASETS/90PLUS/90PLUS_850k/90PLUS_850k_normalized/90PLUS_ewastools_filt_normalized_850k/90PLUS_ewastools_filt_normalized_850k_separated_by_region/beta_90plus_ewasfilt_bmiq_orig_850k_", region, ".rds")
-    targets_file <- paste0("~/ad_methylome/methylome_project/Methylome_Cohorts_Data/DATASETS/90PLUS/90PLUS_850k/90PLUS_850k_normalized/90PLUS_ewastools_filt_normalized_850k/90PLUS_ewastools_filt_normalized_850k_combined_all_regions/targets_incl_comorb.rds")
+    methylation_file <- paste0("~/90plus/data/beta_90plus_ewasfilt_bmiq_orig_850k_", region, ".rds")
+    targets_file <- paste0("~/90plus/data/targets_incl_comorb.rds")
 
 
     # Load data

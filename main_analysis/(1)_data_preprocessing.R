@@ -2,7 +2,6 @@
 ## - load all data from .idat files
 ## - run quality control on samples + plot density and snp-heatmaps 
 ## - remove low quality probes and normalize data for each brain region separately
-## last update 2/2022, Anna-Lena Lang
 
 library(dplyr)
 library(IlluminaHumanMethylationEPICanno.ilm10b3.hg19) # BiocManager::install("IlluminaHumanMethylationEPICanno.ilm10b3.hg19")
@@ -20,18 +19,18 @@ library(MethylAid)
 library(ewastools)# devtools::install_github("hhhh5/ewastools")
 library(reshape)
 library(data.table)
-library(rlang) # remove.packages("rlang"), install.packages("rlang")
-library(minfiData) # needed for maxprobes # BiocManager::install("minfiData")
+library(rlang) 
+library(minfiData) # needed for maxprobes
 library(maxprobes) # remotes::install_github("markgene/maxprobes")
 library(RColorBrewer)
-library(Rtsne) # BiocManager::install("Rtsne")
-library(randomcoloR) # BiocManager::install("randomcoloR")
+library(Rtsne)
+library(randomcoloR) 
 library(plotly)
 library(gplots)
 library(ggplot2)
 library(viridis)
 ## set working directory
-setwd("O:/02182022_backup_Lena/90plus/idats")
+setwd("~/90plus/idats/")
 baseDir <- getwd()
 
 ## -----functions----------------------------------------------------------------
@@ -126,9 +125,9 @@ bmiq_norm <- function(targets_90plus_ewasfilt_incl_R_850k, beta){
   ## BMIQ normalization 
   print(paste0("starting bmiq normalization for brain region " , brainregion))
   beta_90plus_ewasfilt_bmiq_incl_R_850k <<- champ.norm(beta = beta, method = "BMIQ", plotBMIQ = FALSE, arraytype = "EPIC", cores = 20)
-  saveRDS(beta_90plus_ewasfilt_bmiq_incl_R_850k, file = paste0(baseDir, "/preprocessed_data/beta_90plus_ewasfilt_bmiq_incl_R_850k_", brainregion, ".rds"))
+  saveRDS(beta_90plus_ewasfilt_bmiq_incl_R_850k, file = paste0(baseDir, "/data/beta_90plus_ewasfilt_bmiq_incl_R_850k_", brainregion, ".rds"))
   targets_90plus_ewasfilt_bmiq_incl_R_850k <<- targets_90plus_ewasfilt_incl_R_850k
-  saveRDS(targets_90plus_ewasfilt_bmiq_incl_R_850k, file = paste0(baseDir, "/preprocessed_data/targets_90plus_ewasfilt_bmiq_incl_R_850k_", brainregion, ".rds"))
+  saveRDS(targets_90plus_ewasfilt_bmiq_incl_R_850k, file = paste0(baseDir, "/data/targets_90plus_ewasfilt_bmiq_incl_R_850k_", brainregion, ".rds"))
   print("bmiq done and results saved")
 }
 
@@ -140,8 +139,8 @@ remove_reps <- function(targets, beta){
   print(paste0("number of tR: " , sum(targets$technical_replicate == 1)))
   targets_90plus_ewasfilt_bmiq_orig_850k <<- targets[targets$original == 1,]
   beta_90plus_ewasfilt_bmiq_orig_850k <<- beta[ ,colnames(beta)%in% targets_90plus_ewasfilt_bmiq_orig_850k$sample_name]
-  saveRDS(beta_90plus_ewasfilt_bmiq_orig_850k, file =  paste0(baseDir, "/preprocessed_data/beta_90plus_ewasfilt_bmiq_orig_850k_", brainregion, ".rds"))
-  saveRDS(targets_90plus_ewasfilt_bmiq_orig_850k, file = paste0(baseDir, "/preprocessed_data/targets_90plus_ewasfilt_bmiq_orig_850k_", brainregion, ".rds"))
+  saveRDS(beta_90plus_ewasfilt_bmiq_orig_850k, file =  paste0(baseDir, "/data/beta_90plus_ewasfilt_bmiq_orig_850k_", brainregion, ".rds"))
+  saveRDS(targets_90plus_ewasfilt_bmiq_orig_850k, file = paste0(baseDir, "/data/targets_90plus_ewasfilt_bmiq_orig_850k_", brainregion, ".rds"))
   print(paste0("tR and bR removed, new datasets saved. finished analysis for brain region ",  brainregion, "total count of samples: ", nrow(targets_90plus_ewasfilt_bmiq_orig_850k)))
 }
 
@@ -269,9 +268,9 @@ qualitycontrol_samples <- function(targets , rgset){
   
   ## save files
   print("sample filtering done. saving new datasets: rgset_90plus_raw_qcsfilt_incl_R_850k.rds, targets_90plus_raw_qcsfilt_incl_R_850k.rds")
-  saveRDS(rgset_90plus_raw_qcsfilt_incl_R_850k, file = paste0(baseDir, "/preprocessed_data/rgset_90plus_raw_qcsfilt_incl_R_850k.rds"))
-  saveRDS(targets_90plus_raw_qcsfilt_incl_R_850k, file = paste0(baseDir, "/preprocessed_data/targets_90plus_raw_qcsfilt_incl_R_850k.rds"))
-  saveRDS(low_q_samples, file = paste0(baseDir, "/preprocessed_data/low_q_samples.rds"))
+  saveRDS(rgset_90plus_raw_qcsfilt_incl_R_850k, file = paste0(baseDir, "/data/rgset_90plus_raw_qcsfilt_incl_R_850k.rds"))
+  saveRDS(targets_90plus_raw_qcsfilt_incl_R_850k, file = paste0(baseDir, "/data/targets_90plus_raw_qcsfilt_incl_R_850k.rds"))
+  saveRDS(low_q_samples, file = paste0(baseDir, "/data/low_q_samples.rds"))
   }
 
 ## qc for probes, normalize using noob and bmiq and finally remove biological/technical replicates 
@@ -287,7 +286,7 @@ qc_probes_norm_remove_reps <- function(targets, rgset) {
   detP_ewas <- ewastools::detectionP.minfi(rgset) ## calculating detP value using ewastools
   detP_ewas <- detP_ewas[, order(colnames(detP_ewas))]
   print(paste0("saving dataset with detection pvals, detP_ewas_90plus_raw_", brainregion, ".rds"))
-  saveRDS(detP_ewas, file=paste0(baseDir, "/preprocessed_data/detP_ewas_90plus_raw_", brainregion, ".rds"))
+  saveRDS(detP_ewas, file=paste0(baseDir, "/data/detP_ewas_90plus_raw_", brainregion, ".rds"))
   
   ## get beadcount for filtering later on
   beadcount <- beadcount(rgset)
@@ -367,7 +366,7 @@ qc_probes_norm_remove_reps <- function(targets, rgset) {
   ## get all samples that were being removed by champ filter (detP>0.01 in >10% of probes)
   champ_detP_low_q <- targets %>% filter(!(targets$sample_name %in% targets_90plus_ewasfilt_incl_R_850k$sample_name))
   ## add to vector containing all low quality samples 
-  low_q_samples_file <- paste0(baseDir, "/preprocessed_data/low_q_samples.rds")
+  low_q_samples_file <- paste0(baseDir, "/data/low_q_samples.rds")
   low_q_samples <- readRDS(low_q_samples_file)
   name <- paste0("champ_detP_low_q_", brainregion)
   low_q_samples[[name]] <- champ_detP_low_q$sample_name
@@ -390,8 +389,8 @@ qc_probes_norm_remove_reps <- function(targets, rgset) {
   low_qc_probes[[name]] <- nrow(beta) - nrow(beta_90plus_ewasfilt_incl_R_850k)
   
   ## save results
-  saveRDS(beta_90plus_ewasfilt_incl_R_850k, file = paste0(baseDir, "/preprocessed_data/beta_90plus_ewasfilt_incl_R_850k_", brainregion, ".rds"))
-  saveRDS(targets_90plus_ewasfilt_incl_R_850k, file = paste0(baseDir, "/preprocessed_data/targets_90plus_ewasfilt_incl_R_850k_", brainregion, ".rds"))
+  saveRDS(beta_90plus_ewasfilt_incl_R_850k, file = paste0(baseDir, "/data/beta_90plus_ewasfilt_incl_R_850k_", brainregion, ".rds"))
+  saveRDS(targets_90plus_ewasfilt_incl_R_850k, file = paste0(baseDir, "/data/targets_90plus_ewasfilt_incl_R_850k_", brainregion, ".rds"))
   print(paste0("Finished probe filtering, datasets incl replicates saved for ", brainregion))
   ## normalize
   bmiq_norm(targets_90plus_ewasfilt_incl_R_850k, beta_90plus_ewasfilt_incl_R_850k)
@@ -402,8 +401,8 @@ qc_probes_norm_remove_reps <- function(targets, rgset) {
   reps <- targets_90plus_ewasfilt_bmiq_incl_R_850k %>% filter(!(targets_90plus_ewasfilt_bmiq_incl_R_850k$sample_name %in% targets_90plus_ewasfilt_bmiq_orig_850k$sample_name))
   low_q_samples[[name]] <- reps$sample_name
   ## save lists with numbers of qc control measures for flowchart on quality control
-  saveRDS(low_q_samples, file = paste0(baseDir, "/preprocessed_data/low_q_samples.rds"))
-  saveRDS(low_qc_probes, file = paste0(baseDir, "/preprocessed_data/low_qc_probes.rds"))
+  saveRDS(low_q_samples, file = paste0(baseDir, "/data/low_q_samples.rds"))
+  saveRDS(low_qc_probes, file = paste0(baseDir, "/data/low_qc_probes.rds"))
   } 
 
 ## combine all QC steps in one function
@@ -439,7 +438,7 @@ targets_90plus_raw <- targets[order(targets$sample_name), ]
 all(colnames(rgset_90plus_raw) == targets_90plus_raw$sample_name) ## make sure that align
 
 ## set working directory to main folder
-setwd("O:/02182022_backup_Lena/90plus")
+setwd("~/90plus/")
 baseDir <- getwd()
 
 ## assign new samplenames to rgset

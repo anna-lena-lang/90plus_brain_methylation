@@ -9,7 +9,7 @@ library(RColorBrewer)
 library(ggplot2)
 
 ## set working directory
-setwd("O:/02182022_backup_Lena/90plus")
+setwd("~/90plus")
 baseDir <- getwd()
 
 ## define phenotypes and cell types 
@@ -76,7 +76,7 @@ dm_barplot_by_score_DG_CG <- function(biotype = "promoters", phenotypes, celltyp
   
   colorblind_celltype <- c("#000000", "#648FFF", "#FE6100", "#785EF0", "#FFB000")
   ## remove data where celltype proportions were low
-  datatokeep <- read.csv("O:/02182022_backup_Lena/90plus/cleaned_mvals/cleaned_mvals_episcore/episcore_data_to_keep/data_to_keep.csv")
+  datatokeep <- read.csv("~/90plus/cleaned_mvals/cleaned_mvals_episcore/episcore_data_to_keep/data_to_keep.csv")
   big_df <- big_df[big_df$data_to_keep %in% datatokeep$keep,]
   ## rename
   rename <- c(niaaaascore = "NIA-AA A score", niaaabscore = "NIA-AA B score",niaaacscore = "NIA-AA C score",int_adseverityscore= "AD severity score", CG = "CG",DG = "DG")

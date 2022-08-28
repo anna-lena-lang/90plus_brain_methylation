@@ -1,5 +1,5 @@
-# function to plot outside of grid when plotting facet_wrsp plot
-# accessed: https://stackoverflow.com/questions/54438495/shift-legend-into-empty-facets-of-a-faceted-plot-in-ggplot2
+## function to plot outside of grid when plotting facet_wrsp plot
+## accessed from: https://stackoverflow.com/questions/54438495/shift-legend-into-empty-facets-of-a-faceted-plot-in-ggplot2
 library(gtable)
 library(cowplot)
 
