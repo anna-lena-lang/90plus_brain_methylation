@@ -4,6 +4,6 @@
 This is a collection of all R-scripts used to perform DNA-methylation data analysis presented in _'Methylation differences in Alzheimer’s disease neuropathologic change in the aged human brain'_. Raw data will be made publicly available at NCBI GEO after manuscript was accepted for publication. <br>
 
 **Folders**:
-- **functions**: contains functions that are being called in some scripts
+- **functions**: contains functions used in other scripts
 - **main_analysis**: contains all scripts from data preprocessing to differential methylation analysis
-- **figures_and_tables**: contains all scripts to reproduce tables and plot included in the publication, numbered accordingly
+- **figures_and_tables**: contains all scripts to reproduce tables and plots included in the publication, numbered accordingly
