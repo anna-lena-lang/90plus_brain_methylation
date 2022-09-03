@@ -1,4 +1,4 @@
-## plot barplot Online_Resource4 displaying number of signigicant
+## plot barplot Supp_Fig_4 displaying number of signigicant
 ## differentially methylated protein coding promoter regions 
 ## for clinical diagnosis only
 
@@ -16,7 +16,7 @@ all_regions <- c("MFG", "CG", "DEN", "CA1", "ERC", "LOC", "SN", "CBL")
 celltypes <- c("bulk"    ,  "neuron"  ,  "astro"    , "endo"  ,    "oligo_opc" ,"microglia")
 
 ## function 
-dm_barplots_by_celltype_categorical <- function(biotype = "promoter", comparisons){
+dm_barplots_by_celltype_categorical <- function(phenotype = 'conf_diag', biotype = "promoter", comparisons){
   big_df <- NULL
   for (celltype in celltypes){
     for (region in all_regions){
@@ -63,7 +63,7 @@ dm_barplots_by_celltype_categorical <- function(biotype = "promoter", comparison
   big_df$brainregion <- sub("CBL", "CBM", big_df$brainregion)
   big_df$brainregion <- sub("ERC", "EC", big_df$brainregion)
   big_df$brainregion <- factor(big_df$brainregion, levels =  c("MFG", "CG", "CA1", "DG", "EC", "LC", "SN", "CBM"))
-  rename <- c(bulk = "Bulk", astro = "Astrocytes",neuron = "Neurons",endo="Endothelial Cells", oligo_opc = "Olig/OPCs", microglia = "Microglia",
+  rename <- c(bulk = "Bulk", astro = "Astrocytes",neuron = "Neurons",endo="Endothelial", oligo_opc = "Olig/OPCs", microglia = "Microglia",
               MFG = "MFG", CG = "CG", CA1= "CA1", DG = "DG", EC = "EC", LC = "LC", SN= "SN", CBM = "CBM")
   big_df$celltype <- factor(big_df$celltype, levels = c("bulk", "neuron", "astro", "endo", "oligo_opc", "microglia") )
   # create column for samples that have more than 0 significant dms so that not all of the barplots get labels
@@ -91,28 +91,27 @@ dm_barplots_by_celltype_categorical <- function(biotype = "promoter", comparison
     theme(
       strip.background = element_rect(colour="black",
                                       fill="white"), 
+      # strip.text.y = element_text(size = 8),
       text = element_text(size = 10), 
       axis.text.x = element_text(angle = 60, vjust = 1, 
                                  size = 8, hjust = 1),
       axis.ticks = element_blank(),
-      axis.text.y = element_text(size=5),
+      axis.text.y = element_text(size=8),
       panel.border = element_rect(colour = "black", fill=NA, size=0.5),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank())
   
   ggsave(
-    paste0(baseDir,"/plots/final_figures/OR_4_episcore_categorical_conf_diag_barplot.png"),
+    paste0(baseDir,"/plots/final_figures/Supp_Fig_4_episcore_categorical_conf_diag_barplot.png"),
     p,
-    width = 8,
-    height = 9,
-    dpi = 800
+    width = 174,
+    height = 160,
+    units = 'mm',
+    dpi = 1200
   )
-  pdf(file=paste0(baseDir,"/plots/final_figures/OR_4_episcore_categorical_conf_diag_barplot.pdf"),
-      width = 8,
-      height = 9)
-  print(p)
-  dev.off()
+  
 }
 
 ## plot 
-dm_barplots_by_celltype_categorical(biotype = "promoters", comparisons = c("CIND - demented", "normal - demented", "normal - CIND"))
+dm_barplots_by_celltype_categorical(phenotype = 'conf_diag', biotype = "promoters", comparisons = c("CIND - demented", "normal - demented", "normal - CIND"))
+

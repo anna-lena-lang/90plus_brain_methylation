@@ -21,7 +21,7 @@ library(biomaRt)
 library(ggplot2)
 
 ## set working directory
-setwd("O:/02182022_backup_Lena/90plus")
+setwd("~/90plus")
 baseDir <- getwd()
 
 ## get annotation data for EPIC
@@ -36,11 +36,11 @@ biotypes <- c("promoters", "genes", "cpgislands", "cpgs")
 all_regions <- c("MFG", "CG", "DEN", "CA1", "ERC", "LOC", "SN", "CBL")
 
 ## load functions for dm analysis
-source("O:/02182022_backup_Lena/EPIC_R_Scripts/2022_final_scripts/functions/dm_continuous.R")
-source("O:/02182022_backup_Lena/EPIC_R_Scripts/2022_final_scripts/functions/dm_categorical.R")
+source("~/90plus/scripts/functions/dm_continuous.R")
+source("~/90plus/scripts/functions/dm_categorical.R")
 
 ## load function to add cpgs (illumina cpg-ids) to the corresponding ENSEMBL-IDs, applied to protein coding results only
-source("O:/02182022_backup_Lena/EPIC_R_Scripts/2022_final_scripts/functions/add_cpgs_to_protein_coding_results.R")
+source("~/90plus/scripts/functions/add_cpgs_to_protein_coding_results.R")
 
 ## run differential methylation analysis
 dm_categorical(phenotype = "conf_diag", header = "episcore_categorical_clinical")

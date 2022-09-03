@@ -8,11 +8,11 @@ library(biomaRt)
 library(RnBeads)
 
 setwd("~/90plus")
-targets <- readRDS("~/90plus/data/targets_incl_comorb.rds")
+targets <- readRDS("./data/targets_incl_comorb.rds")
 PEN2 <- "ENSG00000205155"
 
 ## read in raw results
-raw_results <- read.csv("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv")
+raw_results <- read.csv("./dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv")
 IDs <- raw_results$ensembl_gene_id
 genes_with_description <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","gene_biotype","description"), filters = 'ensembl_gene_id',values= IDs, mart=ensemblHuman)
 
@@ -115,13 +115,12 @@ p <- ggplot(joined_df, aes(niaaaascore, Methylation)) +
   scale_y_continuous(breaks=seq(0,1,0.5), limits=c(0,1))
 
 ggsave(
-  paste0(baseDir,"/plots/final_figures/OR_7_DG_neuron_gamma_secretase.png"),
+  paste0(baseDir,"/plots/final_figures/Supp_Fig_7_DG_neuron_gamma_secretase.png"),
   p,
-  width =8,
-  height = 5,
-  dpi = 380
+  width =174,
+  height = 100,
+  dpi = 1200,
+  units= 'mm'
 )
 
-pdf(paste0(baseDir,"/plots/final_figures/OR_7_DG_neuron_gamma_secretase.pdf"), width = 12, height=8)
-print(p)
-dev.off()
+

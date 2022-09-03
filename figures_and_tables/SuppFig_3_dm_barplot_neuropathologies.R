@@ -1,4 +1,4 @@
-## code to plot Oline_Resource_3 figure with overview barplot 
+## code to plot Supp_Fig_3 figure with overview barplot 
 ## visualizing number of significant differentially methylated ENS-IDs
 ## for all brain regions and cell types
 ## protein coding promoter regions only 
@@ -74,9 +74,9 @@ dm_barplots_overview <- function(biotype = "promoters"){
   big_df$dms_label[big_df$number_of_sig_dms > 0] <- big_df$number_of_sig_dms[big_df$number_of_sig_dms > 0]
   colorBlind4 <- c("#E69F00", "#56B4E9", "#009E73",  "#CC79A7")
   # remove data where celltype proportions were low
-  datatokeep <- read.csv("O:/02182022_backup_Lena/90plus/cleaned_mvals/cleaned_mvals_episcore/episcore_data_to_keep/data_to_keep.csv")
+  datatokeep <- read.csv("~/90plus/cleaned_mvals/cleaned_mvals_episcore/episcore_data_to_keep/data_to_keep.csv")
   big_df <- big_df[big_df$data_to_keep %in% datatokeep$keep,]
-  rename <- c(bulk = "Bulk", astro = "Astrocytes",neuron = "Neurons",endo="Endothelial Cells", oligo_opc = "Olig/OPCs", microglia = "Microglia",
+  rename <- c(bulk = "Bulk", astro = "Astrocytes",neuron = "Neurons",endo="Endothelial", oligo_opc = "Olig/OPCs", microglia = "Microglia",
               MFG = "MFG", CG = "CG", CA1= "CA1", DG = "DG", EC = "EC", LC = "LC", SN= "SN", CBM = "CBM")
   # remove tdp43, lb, mvlscore
   #big_df <- big_df[!(big_df$phenotypes %in% c("mvl_score", "braak_for_lb_orig", "tdp43")),]
@@ -86,7 +86,8 @@ dm_barplots_overview <- function(biotype = "promoters"){
     scale_fill_manual(values=colorBlind4, name = "Score")+
     ylab("number of DM promoters")+
     xlab("")+
-    facet_grid(brainregion ~  celltype, labeller = as_labeller(rename))+
+    facet_grid(brainregion ~  celltype, labeller = as_labeller(rename),
+               scales = 'free', space = 'free')+
     scale_color_manual(values=colorBlind4, guide = "none")+
     scale_y_continuous(expand = c(0, 0), limits = c(0, (max(big_df$number_of_sig_dms)+ (max(big_df$number_of_sig_dms)/8))))+ 
     geom_text(aes(label = big_df$dms_label,  color = phenotypes, size =8), position=position_dodge(width=0.7), size=2, vjust=0)+
@@ -97,21 +98,19 @@ dm_barplots_overview <- function(biotype = "promoters"){
       text = element_text(size = 10), 
       axis.text.x = element_blank(),
       axis.ticks = element_blank(),
-      axis.text.y = element_text(size=5),
+      axis.text.y = element_text(size=8),
       panel.border = element_rect(colour = "black", fill=NA, size=0.5),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank())
-  ggsave(
-    paste0(baseDir,"/plots/final_figures/OR_3_dm_barplot_overview.png"),
-    p,
-    width = 8,
-    height = 9,
-    dpi = 800
-  )
   
-  pdf(file = paste0(baseDir,"/plots/final_figures/OR_3_dm_barplot_overview.pdf"),width=8, height=9)
-  print(p)
-  dev.off()
+  ggsave(
+    paste0(baseDir,"/plots/final_figures/Supp_Fig_3_dm_barplot_overview.png"),
+    p,
+    width = 174,
+    height = 160,
+    dpi = 1200, 
+    units = 'mm'
+  )
 }
 
 ## plot

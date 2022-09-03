@@ -1,3 +1,4 @@
+## Figure 3
 ## code to plot barplots displaying number of significant promoter-associated
 ## differentially methylated Ensembl-IDs for dentate gyrus (DG) and cingulate gyrus (CG)
 
@@ -10,7 +11,7 @@ library(ggplot2)
 
 ## set working directory
 setwd("~/90plus")
-baseDir <- getwd()
+savedir <- getwd()
 
 ## define phenotypes and cell types 
 phenotypes <- c("int_adseverityscore", "niaaaascore", "niaaabscore", "niaaacscore") 
@@ -26,7 +27,7 @@ dm_barplot_by_score_DG_CG <- function(biotype = "promoters", phenotypes, celltyp
   for (phenotype in phenotypes){
     for (celltype in celltypes){
       for (region in all_regions){
-        filename <- c(paste(baseDir, paste("/dm_results/continuous/sig/protein_coding/protein_coding_sig", phenotype, celltype, biotype, region,sep="_"),".csv", sep=""))
+        filename <- c(paste(savedir, paste("/dm_results/continuous/sig/protein_coding/protein_coding_sig", phenotype, celltype, biotype, region,sep="_"),".csv", sep=""))
         if (file.exists(filename)){
           number_of_sig_dms <- ''
           brainregion <- ''
@@ -107,14 +108,14 @@ dm_barplot_by_score_DG_CG <- function(biotype = "promoters", phenotypes, celltyp
   
   
   ggsave(
-    paste0(baseDir,"/plots/final_figures/Fig3_dm_barplot_protein_coding_promoters_CG_DG.png"),
+    paste0(savedir,"/plots/final_figures/Fig3_dm_barplot_protein_coding_promoters_CG_DG.png"),
     p,
     width =8,
     height = 3,
     dpi = 380
   )
   
-  pdf(file = paste0(baseDir,"/plots/final_figures/Fig3_dm_barplot_protein_coding_promoters_CG_DG.pdf"),width=10, height=5)
+  pdf(file = paste0(savedir,"/plots/final_figures/Fig3_dm_barplot_protein_coding_promoters_CG_DG.pdf"),width=10, height=5)
   print(p)
   dev.off()
 }

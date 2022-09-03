@@ -15,6 +15,7 @@ biotype <- c("promoters")
 ## will also add the hgnc symbol (external_gene_name), biotype (e.g. protein coding) and description for the hgnc symbol
 add_cpgs_to_protein_coding_results<- function(category){
   ## load df that displays ENS_ID and corresponding cpg-probes
+  ## these mapping lists were derived using Rnbeads 
   ENS_to_cpg <- readRDS(paste0(getwd(),"/ENS_to_cpg_lists/ENS_to_cpg_", biotype, ".rds")) %>% tibble()
   ## set up mart to access biomaRt annotation
   directory <- paste0(getwd(),"/dm_results/", category, "/sig/protein_coding/") 

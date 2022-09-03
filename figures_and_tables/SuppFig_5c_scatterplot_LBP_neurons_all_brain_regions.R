@@ -191,13 +191,11 @@ p_LBP <- ggplot(joined_df, aes(niaaaascore, Methylation)) +
 
 
 ggsave(
-  paste0(baseDir,"/plots/final_figures/OR_5c_LBP_niaaaascore_neuron_all_brain_regions.png"),
+  paste0(baseDir,"/plots/final_figures/Supp_Fig_5c_LBP_niaaaascore_neuron_all_brain_regions.png"),
   p_LBP,
-  width = 9,
-  height = 3,
-  dpi = 380
+  width = 174,
+  height = 60,
+  units = 'mm',
+  dpi = 1200
 )
 
-pdf(paste0(baseDir,"/plots/final_figures/OR_5c_LBP_niaaaascore_neuron_all_brain_regions.pdf"), width = 12, height=8)
-print(p_LBP)
-dev.off()

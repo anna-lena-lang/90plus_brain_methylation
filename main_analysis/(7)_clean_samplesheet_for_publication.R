@@ -1,5 +1,5 @@
 # code to clean samplesheet
-setwd("O:/02182022_backup_Lena/90plus")
+setwd("~/90plus")
 deconvo <- readRDS("targets_incl_episcore.rds")
 
 #  rename
@@ -37,4 +37,4 @@ deconvo <- dplyr::rename(deconvo, "proportion_astrocytes" = "Astro")
 deconvo <- dplyr::rename(deconvo, "proportion_endothelial" = "Endo")
 deconvo <- dplyr::rename(deconvo, "proportion_microglia" = "Microglia") 
 
-write.csv(deconvo, file = "Sup_File_cleaned_samplesheet.csv")
+write.csv(deconvo, file = "~/90plus/Sup_File_cleaned_samplesheet.csv")

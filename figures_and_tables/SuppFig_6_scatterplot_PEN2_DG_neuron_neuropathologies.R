@@ -95,13 +95,10 @@ for(comparison in comparisons){
   myplots[[comparison]] <- ggplotGrob(p)
 }
 dev.off()
-png(width=6,height=5, units ='in', res=800,paste0("./plots/final_figures/OR_6_PEN2_DG_neuron_all_scores.png"))
+png(width=174,height=150, units ='mm', res=1200,paste0("./plots/final_figures/Supp_Fig_6_PEN2_DG_neuron_all_scores.png"))
 plot<- 
   ggarrange(plotlist = myplots,
             labels = c("a", "b", "c", "d"),
             ncol = 2, nrow =2)
-## add title
-plot <- annotate_figure(plot, top = text_grob("PEN-2 methylation in DG neurons by AD neuropathology", 
-                                      color = "black", size = 14))
 print(plot)
 dev.off()

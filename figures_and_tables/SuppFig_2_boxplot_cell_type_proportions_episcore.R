@@ -70,7 +70,7 @@ p <- ggplot(targets_long, aes(x=brain_region, y=proportion, color=brain_region))
   xlab("")+  
   guides(color=guide_legend(title="Brain region"))
 
-png(paste0("./plots/final_figures/Supp_Fig_2_episcore_proportions.png"),width=10,height=8, units ='in', res=800) 
+png(paste0("./plots/final_figures/Supp_Fig_2_episcore_proportions.png"),width=174,height=160, units ='mm', res=1200) 
 grid.draw(shift_legend(p))
 dev.off()
 
