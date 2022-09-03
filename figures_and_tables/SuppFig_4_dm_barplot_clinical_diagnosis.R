@@ -12,7 +12,7 @@ baseDir <- paste0("~/90plus/")
 
 ## specify biotypes, regions
 biotype <- "promoters"
-all_regions <- c("MFG", "CG", "DEN", "CA1", "ERC", "LOC", "SN", "CBL")
+all_regions <- c("MFG", "CG", "DG", "CA1", "EC", "LC", "SN", "CBM")
 celltypes <- c("bulk"    ,  "neuron"  ,  "astro"    , "endo"  ,    "oligo_opc" ,"microglia")
 
 ## function 
@@ -58,10 +58,6 @@ dm_barplots_by_celltype_categorical <- function(phenotype = 'conf_diag', biotype
   # define colors
   n_colors <- 4
   bio <- viridis_pal(option = "D")(n_colors)
-  big_df$brainregion <- sub("DEN", "DG", big_df$brainregion)
-  big_df$brainregion <- sub("LOC", "LC", big_df$brainregion)
-  big_df$brainregion <- sub("CBL", "CBM", big_df$brainregion)
-  big_df$brainregion <- sub("ERC", "EC", big_df$brainregion)
   big_df$brainregion <- factor(big_df$brainregion, levels =  c("MFG", "CG", "CA1", "DG", "EC", "LC", "SN", "CBM"))
   rename <- c(bulk = "Bulk", astro = "Astrocytes",neuron = "Neurons",endo="Endothelial", oligo_opc = "Olig/OPCs", microglia = "Microglia",
               MFG = "MFG", CG = "CG", CA1= "CA1", DG = "DG", EC = "EC", LC = "LC", SN= "SN", CBM = "CBM")

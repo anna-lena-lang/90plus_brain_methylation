@@ -23,7 +23,7 @@ celltypes <- c('bulk','neuron', 'astro', 'endo', 'oligo_opc', 'microglia')
 ## colorcode the bars by cell types
 dm_barplot_by_score_DG_CG <- function(biotype = "promoters", phenotypes, celltypes){
   big_df <- NULL
-  all_regions<- c("DEN", "CG")
+  all_regions<- c("DG", "CG")
   for (phenotype in phenotypes){
     for (celltype in celltypes){
       for (region in all_regions){
@@ -60,8 +60,6 @@ dm_barplot_by_score_DG_CG <- function(biotype = "promoters", phenotypes, celltyp
   ## define colors
   n_colors <- 4
   bio <- viridis_pal(option = "D")(n_colors)
-  big_df$brainregion <- sub("DEN", "DG", big_df$brainregion)
-  
   big_df$brainregion <- factor(big_df$brainregion, levels =  c("CG", "DG"))
   big_df$phenotypes <- as.factor(big_df$phenotypes)
   big_df$celltype <- sub("bulk", "Bulk", big_df$celltype)

@@ -35,17 +35,17 @@ multimerge <- function (mylist) {
 }
 
 ## Load dfs with beta values for each brain region. These are the results from script (1)_data_preprocessing
-DEN <- readRDS(paste0(baseDir, "/data/beta_90plus_ewasfilt_bmiq_orig_850k_DEN.rds"))
-ERC <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_ERC.rds"))
+DG <- readRDS(paste0(baseDir, "/data/beta_90plus_ewasfilt_bmiq_orig_850k_DG.rds"))
+EC <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_EC.rds"))
 CA1 <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_CA1.rds"))
 MFG <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_MFG.rds"))
 CG <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_CG.rds"))
-CBL <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_CBL.rds"))
-LOC <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_LOC.rds"))
+CBM <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_CBM.rds"))
+LC <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_LC.rds"))
 SN <- readRDS(paste0(baseDir,"/data/beta_90plus_ewasfilt_bmiq_orig_850k_SN.rds"))
 
 ## merge into one df
-beta <- multimerge(list(DEN, LOC, CBL, CG, MFG, SN, CA1, ERC))
+beta <- multimerge(list(DG, LC, CBM, CG, MFG, SN, CA1, EC))
 
 ## removing all rows with any NA, keeping only probes that all brain region datasets share
 beta <- na.omit(beta)

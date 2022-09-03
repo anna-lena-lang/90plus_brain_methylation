@@ -18,29 +18,29 @@ ensembl <- useMart("ensembl")
 ensemblHuman <- useDataset("hsapiens_gene_ensembl",mart = ensembl)
 
 ## load data
-neuron_promoters_DEN <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_DEN_niaaaascore_cleaned_mvals.rds")
+neuron_promoters_DG <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_DG_niaaaascore_cleaned_mvals.rds")
 neuron_promoters_CA1 <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_CA1_niaaaascore_cleaned_mvals.rds")
-neuron_promoters_ERC <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_ERC_niaaaascore_cleaned_mvals.rds")
+neuron_promoters_EC <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_EC_niaaaascore_cleaned_mvals.rds")
 neuron_promoters_MFG <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_MFG_niaaaascore_cleaned_mvals.rds")
-neuron_promoters_CBL <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_CBL_niaaaascore_cleaned_mvals.rds")
-neuron_promoters_LOC <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_LOC_niaaaascore_cleaned_mvals.rds")
+neuron_promoters_CBM <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_CBM_niaaaascore_cleaned_mvals.rds")
+neuron_promoters_LC <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_LC_niaaaascore_cleaned_mvals.rds")
 neuron_promoters_SN <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_SN_niaaaascore_cleaned_mvals.rds")
 neuron_promoters_CG <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_CG_niaaaascore_cleaned_mvals.rds")
 
-## DEN
-neuron_promoters_DEN <- neuron_promoters_DEN[SLC22A6,]
-neuron_promoters_DEN <- rnb.mval2beta(neuron_promoters_DEN)
-neuron_promoters_DEN <- tibble(sample_name = names(neuron_promoters_DEN), Methylation = neuron_promoters_DEN, celltype = "SLC22A6 DG Neuron **",sig_color= "sig") %>%
+## DG
+neuron_promoters_DG <- neuron_promoters_DG[SLC22A6,]
+neuron_promoters_DG <- rnb.mval2beta(neuron_promoters_DG)
+neuron_promoters_DG <- tibble(sample_name = names(neuron_promoters_DG), Methylation = neuron_promoters_DG, celltype = "SLC22A6 DG Neuron **",sig_color= "sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DG.csv"))
 IDs <- raw_results$ensembl_gene_id
 genes_with_description <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","gene_biotype","description"), filters = 'ensembl_gene_id',values= IDs, mart=ensemblHuman)
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_SLC22A6 <- raw_results %>% filter(raw_results$external_gene_name == 'SLC22A6')
 raw_SLC22A6 <- raw_SLC22A6 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
-neuron_promoters_DEN$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
-neuron_promoters_DEN <- neuron_promoters_DEN  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
-neuron_promoters_DEN$niaaaascore %<>% as.numeric
+neuron_promoters_DG$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
+neuron_promoters_DG <- neuron_promoters_DG  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
+neuron_promoters_DG$niaaaascore %<>% as.numeric
 
 ## CA1
 neuron_promoters_CA1 <- neuron_promoters_CA1[SLC22A6,]
@@ -55,19 +55,19 @@ neuron_promoters_CA1$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
 neuron_promoters_CA1 <- neuron_promoters_CA1  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
 neuron_promoters_CA1$niaaaascore %<>% as.numeric
 
-## ERC
-neuron_promoters_ERC <- neuron_promoters_ERC[SLC22A6,]
-neuron_promoters_ERC <- rnb.mval2beta(neuron_promoters_ERC)
-neuron_promoters_ERC <- tibble(sample_name = names(neuron_promoters_ERC), Methylation = neuron_promoters_ERC, celltype = "SLC22A6 EC Neuron",sig_color= "not_sig") %>%
+## EC
+neuron_promoters_EC <- neuron_promoters_EC[SLC22A6,]
+neuron_promoters_EC <- rnb.mval2beta(neuron_promoters_EC)
+neuron_promoters_EC <- tibble(sample_name = names(neuron_promoters_EC), Methylation = neuron_promoters_EC, celltype = "SLC22A6 EC Neuron",sig_color= "not_sig") %>%
   left_join(targets)
-neuron_promoters_ERC$niaaaascore %<>% as.numeric
-raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_ERC.csv"))
+neuron_promoters_EC$niaaaascore %<>% as.numeric
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_EC.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_SLC22A6 <- raw_results %>% filter(raw_results$external_gene_name == 'SLC22A6')
 raw_SLC22A6 <- raw_SLC22A6 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
-neuron_promoters_ERC$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
-neuron_promoters_ERC <- neuron_promoters_ERC  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
-neuron_promoters_ERC$niaaaascore %<>% as.numeric
+neuron_promoters_EC$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
+neuron_promoters_EC <- neuron_promoters_EC  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
+neuron_promoters_EC$niaaaascore %<>% as.numeric
 
 ## MFG
 neuron_promoters_MFG <- neuron_promoters_MFG[SLC22A6,]
@@ -97,32 +97,32 @@ neuron_promoters_SN <- neuron_promoters_SN  %>% as.data.frame() %>% left_join(ra
 neuron_promoters_SN$niaaaascore %<>% as.numeric
 
 
-## LOC
-neuron_promoters_LOC <- neuron_promoters_LOC[SLC22A6,]
-neuron_promoters_LOC <- rnb.mval2beta(neuron_promoters_LOC)
-neuron_promoters_LOC <- tibble(sample_name = names(neuron_promoters_LOC), Methylation = neuron_promoters_LOC, celltype = "SLC22A6 LC Neuron",sig_color= "not_sig") %>%
+## LC
+neuron_promoters_LC <- neuron_promoters_LC[SLC22A6,]
+neuron_promoters_LC <- rnb.mval2beta(neuron_promoters_LC)
+neuron_promoters_LC <- tibble(sample_name = names(neuron_promoters_LC), Methylation = neuron_promoters_LC, celltype = "SLC22A6 LC Neuron",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_LOC.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_LC.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_SLC22A6 <- raw_results %>% filter(raw_results$external_gene_name == 'SLC22A6')
 raw_SLC22A6 <- raw_SLC22A6 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
-neuron_promoters_LOC$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
-neuron_promoters_LOC <- neuron_promoters_LOC  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
-neuron_promoters_LOC$niaaaascore %<>% as.numeric
+neuron_promoters_LC$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
+neuron_promoters_LC <- neuron_promoters_LC  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
+neuron_promoters_LC$niaaaascore %<>% as.numeric
 
 
-## CBL
-neuron_promoters_CBL <- neuron_promoters_CBL[SLC22A6,]
-neuron_promoters_CBL <- rnb.mval2beta(neuron_promoters_CBL)
-neuron_promoters_CBL <- tibble(sample_name = names(neuron_promoters_CBL), Methylation = neuron_promoters_CBL, celltype = "SLC22A6 CBM Neuron",sig_color= "not_sig") %>%
+## CBM
+neuron_promoters_CBM <- neuron_promoters_CBM[SLC22A6,]
+neuron_promoters_CBM <- rnb.mval2beta(neuron_promoters_CBM)
+neuron_promoters_CBM <- tibble(sample_name = names(neuron_promoters_CBM), Methylation = neuron_promoters_CBM, celltype = "SLC22A6 CBM Neuron",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_CBL.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_CBM.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_SLC22A6 <- raw_results %>% filter(raw_results$external_gene_name == 'SLC22A6')
 raw_SLC22A6 <- raw_SLC22A6 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
-neuron_promoters_CBL$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
-neuron_promoters_CBL <- neuron_promoters_CBL  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
-neuron_promoters_CBL$niaaaascore %<>% as.numeric
+neuron_promoters_CBM$ensembl_gene_id <- raw_SLC22A6$ensembl_gene_id
+neuron_promoters_CBM <- neuron_promoters_CBM  %>% as.data.frame() %>% left_join(raw_SLC22A6, by=  "ensembl_gene_id")
+neuron_promoters_CBM$niaaaascore %<>% as.numeric
 
 
 ## CG
@@ -142,12 +142,12 @@ neuron_promoters_CG$niaaaascore %<>% as.numeric
 ## join
 joined_df <- rbind(neuron_promoters_MFG,
                    neuron_promoters_CG, 
-                   neuron_promoters_CBL,
-                   neuron_promoters_LOC,
+                   neuron_promoters_CBM,
+                   neuron_promoters_LC,
                    neuron_promoters_SN,
-                   neuron_promoters_ERC,
+                   neuron_promoters_EC,
                    neuron_promoters_CA1,
-                   neuron_promoters_DEN)
+                   neuron_promoters_DG)
 joined_df$celltype <- factor(joined_df$celltype, levels = c("SLC22A6 MFG Neuron",
                                                             "SLC22A6 CG Neuron",
                                                             "SLC22A6 DG Neuron **",

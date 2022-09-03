@@ -7,7 +7,7 @@ library(dplyr)
 library(biomaRt)
 
 
-regions <- c("DEN", "ERC", "CBL", "SN", "LOC", "CA1", "CG", "MFG")
+regions <- c("DG", "EC", "CBM", "SN", "LC", "CA1", "CG", "MFG")
 celltypes <- c("neuron", "oligo_opc", "endo", "astro", "microglia")
 biotype <- c("promoters")
 

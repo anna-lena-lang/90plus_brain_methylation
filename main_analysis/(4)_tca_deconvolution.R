@@ -142,7 +142,7 @@ runTca <- function(betas_ordered, celltypes_matrix, region){
 main <- function(){
     
     # brain regions
-    all_regions <- c("CA1", "CBL", "CG", "DEN", "ERC", "LOC", "MFG", "SN")
+    all_regions <- c("CA1", "CBM", "CG", "DG", "EC", "LC", "MFG", "SN")
     #region <- all_regions[3]
 
 

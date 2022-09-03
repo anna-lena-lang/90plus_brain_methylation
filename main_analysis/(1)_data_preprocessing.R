@@ -42,14 +42,14 @@ clean_samplesheet <- function(targets){
     ## remove cases 118, 2517, 4017, 4818,5118, 5418
     filter(!sample_source %in% c("UCI118","UCI2517", "UCI417", "UCI4017", "UCI4818", "UCI3618","UCI5118", "UCI5418")) %>%
     ## UCI118, UCI3618 not all FFPE blocks were available for processing - full cases excluded
-    ## UCI2517CBL sample with high delta ct in qPCR, full case excluded
+    ## UCI2517CBM sample with high delta ct in qPCR, full case excluded
     ## UCI417 samples with high delta ct in qPCR, full case excluded
     ## UCI4017 case with potential Parkinsons Disease and infarction, full case excluded
     ## UCI4818 case with Parkinsons Disease, full case excluded
     ## UCI5118 case with Glioma, full case excluded
     ## UCI5418 case with massive hemorrhage, full case excluded
     ## only keep samples from 8 brain regions, remove all samples  from other projects
-    filter(brain_region %in% c("MFG", "CG", "CA1", "DEN", "ERC", "LOC", "SN", "CBL"))
+    filter(brain_region %in% c("MFG", "CG", "CA1", "DG", "EC", "LC", "SN", "CBM"))
   
   ## change NAs to 0 in biological_replicate
   targets$biological_replicate[is.na(targets$biological_replicate)] <- 0 
@@ -85,7 +85,7 @@ clean_samplesheet <- function(targets){
   
   ## change character to factor for brain region
   targets$brain_region <- as.factor(targets$brain_region)
-  targets$brain_region <- factor(targets$brain_region, levels =  c("MFG", "CG", "CA1", "DEN", "ERC", "LOC", "SN", "CBL"))
+  targets$brain_region <- factor(targets$brain_region, levels =  c("MFG", "CG", "CA1", "DG", "EC", "LC", "SN", "CBM"))
   ## change character to factor forclinical diganosis
   targets$conf_diag <- as.factor(targets$conf_diag)
   targets$conf_diag <- factor(targets$conf_diag, levels=c(0, 1, 2),labels=c("normal", "CIND", "demented"))
@@ -248,7 +248,7 @@ qualitycontrol_samples <- function(targets , rgset){
   ## snp heatmap: manually removing snp outliers as seen in heatmaps from snp_heatmap_bysourc
   snp_heatmap_bysource(rgset) ## prints all heatmaps by sample source (=individual donor/patient) in one pdf
   print("removing samples that don't match snp heatmap pattern of samples from same donor")
-  bad_snp <- c("UCI617J2_redoBatch4fail", "UCI618J2", "UCI1618TERx", "UCI1818DEN", "UCI2017CA1", "UCI4118CA1_tR01")
+  bad_snp <- c("UCI617J2_redoBatch4fail", "UCI618J2", "UCI1618TERx", "UCI1818DG", "UCI2017CA1", "UCI4118CA1_tR01")
   rgset <- rgset[, !(colnames(rgset) %in% bad_snp)]
   t_old <- targets
   targets <- targets[targets$sample_name %in% colnames(rgset), ]
@@ -447,5 +447,5 @@ saveRDS(targets_90plus_raw, file = "targets_90plus_raw.rds")
 
 ## run full analysis pipeline for each brain region separately
 ## this includes quality control of samples, probes, normalization and removal of replicates
-brainregions <- c("MFG", "DEN", "CG", "SN", "LOC", "CBL", "CA1" , "ERC")
+brainregions <- c("MFG", "DG", "CG", "SN", "LC", "CBM", "CA1" , "EC")
 preprocess_bybrainregion(targets_90plus_raw, rgset_90plus_raw)

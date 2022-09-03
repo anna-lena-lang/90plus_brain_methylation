@@ -1,5 +1,5 @@
 ## Figure 4
-## code to plot mirrorplots for nia-aa-a-score for publication
+## code to plot mirrorplots for nia-aa-a-score in dentate gyrus
 ## this will use promoter associated protein coding ENS-IDs only
 library(tidyverse)
 library(hudson)
@@ -15,7 +15,7 @@ savedir <- paste0("~/90plus/")
 anno_promoters <- rnb.annotation2data.frame(rnb.get.annotation("promoters"))
 
 ## specify region 
-all_regions <- c("DEN")
+all_regions <- c("DG")
 
 ## functions
 

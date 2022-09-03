@@ -38,14 +38,14 @@ celltype = 'neuron'
 myplots <- list()
 for(comparison in comparisons){
   # read in raw results
-  raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_",comparison,"_neuron_promoters_DEN.csv"))
+  raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_",comparison,"_neuron_promoters_DG.csv"))
   IDs <- raw_results$ensembl_gene_id
   genes_with_description <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","gene_biotype","description"), filters = 'ensembl_gene_id',values= IDs, mart=ensemblHuman)
   # merge the two dfs
   raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
   PEN2 <- raw_results %>% filter(raw_results$external_gene_name == 'PSENEN')
   PEN2 <- PEN2 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
-  neuron_promoters <- readRDS(paste0("~/90plus/cleaned_mvals/cleaned_mvals_episcore/", comparison, "/neuron/neuron/corrected_pvals/neuron_promoters_DEN_", comparison, "_cleaned_mvals.rds"))
+  neuron_promoters <- readRDS(paste0("~/90plus/cleaned_mvals/cleaned_mvals_episcore/", comparison, "/neuron/neuron/corrected_pvals/neuron_promoters_DG_", comparison, "_cleaned_mvals.rds"))
   neuron_promoters <- rnb.mval2beta(neuron_promoters)
   neuron_promoters <- neuron_promoters[PEN2$ensembl_gene_id,] %>% as.data.frame()
   colnames(neuron_promoters)[1] <- 'beta'

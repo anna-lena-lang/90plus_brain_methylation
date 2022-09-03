@@ -13,7 +13,7 @@ library(ggplot2)
 ## set working directory
 setwd("~/90plus")
 baseDir <- getwd()
-all_regions <- c("MFG", "CG", "DEN", "CA1", "ERC", "LOC", "SN", "CBL")
+all_regions <- c("MFG", "CG", "DG", "CA1", "EC", "LC", "SN", "CBM")
 phenotypes <- c("int_adseverityscore", "niaaaascore", "niaaabscore", "niaaacscore") 
 celltypes <- c('bulk','neuron', 'astro', 'endo', 'oligo_opc', 'microglia')
 
@@ -57,11 +57,6 @@ dm_barplots_overview <- function(biotype = "promoters"){
   # define colors
   n_colors <- 4
   bio <- viridis_pal(option = "D")(n_colors)
-  big_df$brainregion <- sub("DEN", "DG", big_df$brainregion)
-  big_df$brainregion <- sub("LOC", "LC", big_df$brainregion)
-  big_df$brainregion <- sub("CBL", "CBM", big_df$brainregion)
-  big_df$brainregion <- sub("ERC", "EC", big_df$brainregion)
-  
   big_df$brainregion <- factor(big_df$brainregion, levels =  c("MFG", "CG", "CA1", "DG", "EC", "LC", "SN", "CBM"))
   big_df$phenotypes <- sub("niaaaascore", "NIA-AA A score", big_df$phenotypes)
   big_df$phenotypes <- sub("niaaabscore", "NIA-AA B score", big_df$phenotypes)

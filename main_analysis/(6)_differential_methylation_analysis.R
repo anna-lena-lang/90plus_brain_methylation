@@ -33,7 +33,7 @@ ensemblHuman <- useDataset("hsapiens_gene_ensembl",mart = ensembl)
 
 ## specify biotypes, regions
 biotypes <- c("promoters", "genes", "cpgislands", "cpgs")
-all_regions <- c("MFG", "CG", "DEN", "CA1", "ERC", "LOC", "SN", "CBL")
+all_regions <- c("MFG", "CG", "DG", "CA1", "EC", "LC", "SN", "CBM")
 
 ## load functions for dm analysis
 source("~/90plus/scripts/functions/dm_continuous.R")

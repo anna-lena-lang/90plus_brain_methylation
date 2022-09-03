@@ -29,10 +29,10 @@ col_brain <-
 targets$Olig_OPC <- targets$Oligo + targets$OPC
 ## rename brain regions for plotting
 targets <- targets %>%
-  mutate(brain_region = case_when(grepl("^ERC", brain_region) ~ "Entorhinal cortex",
-                                  grepl("^DEN", brain_region) ~ "Dentate gyrus",
-                                  grepl("^LOC", brain_region) ~ "Locus coeruleus",
-                                  grepl("^CBL", brain_region) ~ "Cerebellar cortex",
+  mutate(brain_region = case_when(grepl("^EC", brain_region) ~ "Entorhinal cortex",
+                                  grepl("^DG", brain_region) ~ "Dentate gyrus",
+                                  grepl("^LC", brain_region) ~ "Locus coeruleus",
+                                  grepl("^CBM", brain_region) ~ "Cerebellar cortex",
                                   grepl("^MFG", brain_region) ~ "Middle frontal gyrus",
                                   grepl("^SN", brain_region) ~ "Substantia nigra",
                                   grepl("^CG", brain_region) ~ "Cingulate gyrus",

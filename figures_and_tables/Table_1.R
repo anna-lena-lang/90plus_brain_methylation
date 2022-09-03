@@ -6,8 +6,8 @@ library(dplyr)
 library(table1)
 
 ## set working directory
-setwd("O:/02182022_backup_Lena/90plus")
-brainregions <- c("MFG", "CG", "CA1", "DEN", "ERC", "LOC", "SN", "CBL")
+setwd("~/90plus")
+brainregions <- c("MFG", "CG", "CA1", "DG", "EC", "LC", "SN", "CBM")
 
 ## load samplesheet
 targets <- readRDS("targets_incl_comorb.rds")

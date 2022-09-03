@@ -53,10 +53,10 @@ load_bulk <- function(region){
 ## - cell_type = name of the cell type to load
 load_celltype <- function(region, cell_type){
 
-    ## do not include microglia unless they are from LOC, SN
-    if (cell_type == 'microglia' & !(region %in% c('LOC', 'SN'))) return(NA)
-    ## do not include oligo_opc CBL
-    if (cell_type == 'oligo_opc' & (region == 'CBL')) return (NA)
+    ## do not include microglia unless they are from LC, SN
+    if (cell_type == 'microglia' & !(region %in% c('LC', 'SN'))) return(NA)
+    ## do not include oligo_opc CBM
+    if (cell_type == 'oligo_opc' & (region == 'CBM')) return (NA)
     
     print(paste("Loading cell type", cell_type, "in", region, Sys.time()))
 
@@ -275,18 +275,8 @@ plot_umap <- function(pcs, cell_type){
     savefile
 
   
-    ## change brain region naming and remove bulk data
+    ## change cell type naming and remove bulk data
     formatted_dims <-  formatted_umap %>%
-        mutate(brain_region = as.character(brain_region),
-                brain_region = ifelse(brain_region == 'DEN',
-                                     'DG', brain_region),
-                brain_region = ifelse(brain_region == 'ERC',
-                                     'EC', brain_region),
-                brain_region = ifelse(brain_region == 'LOC',
-                                     'LC', brain_region),
-                brain_region = ifelse(brain_region == 'CBL',
-                                     'CBM', brain_region),
-        ) %>%
         mutate(celltype = ifelse(celltype == 'astro',
                          'astrocytes', celltype),
                 celltype = ifelse(celltype == 'endo',
@@ -363,7 +353,7 @@ plot_umap <- function(pcs, cell_type){
 main <- function(){
 
     ## cell types and brain regions to process
-    all_regions <- c("CA1", "CBL", "CG", "DEN", "ERC", "LOC", "MFG", "SN")
+    all_regions <- c("CA1", "CBM", "CG", "DG", "EC", "LC", "MFG", "SN")
     cell_types <- c("neuron", "oligo_opc", "astro", "endo", "microglia")
 
 

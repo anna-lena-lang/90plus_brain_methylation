@@ -12,7 +12,7 @@ targets <- readRDS("./data/targets_incl_comorb.rds")
 PEN2 <- "ENSG00000205155"
 
 ## read in raw results
-raw_results <- read.csv("./dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv")
+raw_results <- read.csv("./dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DG.csv")
 IDs <- raw_results$ensembl_gene_id
 genes_with_description <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","gene_biotype","description"), filters = 'ensembl_gene_id',values= IDs, mart=ensemblHuman)
 
@@ -26,7 +26,7 @@ PEN2 <- raw_results %>% filter(raw_results$external_gene_name == 'PSENEN')
 gamma_secretase <- rbind(APH1A, PSEN1, PSEN2, PEN2, NCSTN)
 
 ## APH1A
-neuron_promoters <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_DEN_niaaaascore_cleaned_mvals.rds")
+neuron_promoters <- read_rds("./cleaned_mvals/cleaned_mvals_episcore/niaaaascore/neuron/neuron/corrected_pvals/neuron_promoters_DG_niaaaascore_cleaned_mvals.rds")
 neuron_promoters_APH1A <- neuron_promoters[APH1A$ensembl_gene_id,]
 neuron_promoters_APH1A <- rnb.mval2beta(neuron_promoters_APH1A)
 neuron_promoters_APH1A <- tibble(sample_name = names(neuron_promoters_APH1A), Methylation = neuron_promoters_APH1A, gene = "APH-1A", adj_p = APH1A$adj.P.Val)  %>% 

@@ -13,7 +13,7 @@ setwd("~/90plus/batch_correction/svd/scripts/")
 
 
 ## parameters to control the regions, cell types, biotypes, and traits to process
-brain_regions <- c("CA1", "CBL", "CG", "DEN", "ERC", "LOC", "MFG", "SN")
+brain_regions <- c("CA1", "CBM", "CG", "DG", "EC", "LC", "MFG", "SN")
 cell_types <- c("neuron", "oligo_opc", "astro", "endo", "microglia", "bulk")
 biotypes <- c("genes", "promoters", "cpgislands", "cpgs")
 protected_traits <- c('niaaaascore', 'niaaabscore', 'niaaacscore')

@@ -3,16 +3,6 @@ setwd("~/90plus")
 deconvo <- readRDS("targets_incl_episcore.rds")
 
 #  rename
-deconvo <- deconvo %>%
-  mutate(brain_region = case_when(grepl("^ERC", brain_region) ~ "EC",
-                                  grepl("^DEN", brain_region) ~ "DG",
-                                  grepl("^LOC", brain_region) ~ "LC",
-                                  grepl("^CBL", brain_region) ~ "CBM",
-                                  grepl("^MFG", brain_region) ~ "MFG",
-                                  grepl("^SN", brain_region) ~ "SN",
-                                  grepl("^CG", brain_region) ~ "CG",
-                                  grepl("^CA1", brain_region) ~ "CA1"
-  ))
 deconvo$Olig_opc <- deconvo$Oligo+deconvo$OPC
 
 deconvo <- deconvo %>% dplyr::select(c("sample_name"    ,                   
