@@ -572,23 +572,34 @@ manhattan_continuous <- function(phenotype, biotype = "promoters", category = "c
       p <- adapted_emirror(top=pos, bottom=neg, tline = 0.05, bline = 0.05, color1="grey40", highlighter = "#07D4FF",
                            color2="grey80", rotatelabels = FALSE,labelangle = 45, background="white",opacity= 0.5, hgtratio=4, highlight_var = annotate, annotate_var = annotate,
                            toptitle =  "")
-      p <- as_ggplot(p)
-      pdf(paste0(savedir, "plots/final_figures/Fig4_manhattan_mirror_", category, "_", phenotype, "_",region, "_", celltype, "_", biotype, ".pdf"), width= 8, height = 8)
+
+      ggsave(
+        paste0(saveDir, "plots/final_figures/Fig4_manhattan_mirror_", category, "_", phenotype, "_",region, "_", celltype, "_", biotype, ".png"),
+        p,
+        width = 6.85,
+        height = 6.85,
+        dpi = 200,
+        units = 'in'
+      )
+      
+      pdf(file = paste0(saveDir, "plots/final_figures/Fig4_manhattan_mirror_", category, "_", phenotype, "_",region, "_", celltype, "_", biotype, ".pdf"),
+      width = 6.85,
+      height = 6.85)
       print(p)
       dev.off()
-      
-      ggsave(
-        paste0(savedir, "plots/final_figures/Fig4_manhattan_mirror_", category, "_", phenotype, "_",region, "_", celltype, "_", biotype, ".png"),
-        p,
-        width =8,
-        height = 8,
-        dpi = 380
-      )
+        
       }
       }
   }
 }
 
 
+
+
 ## run manhattan mirror plot
 manhattan_continuous(phenotype = "niaaaascore", category= "continuous")
+manhattan_continuous(phenotype = "niaaabscore", category= "continuous")
+manhattan_continuous(phenotype = "int_adseverityscore", category= "continuous")
+manhattan_continuous(phenotype = "braak_for_lb_orig", category= "continuous")
+manhattan_continuous(phenotype = "mvl_score", category= "continuous")
+manhattan_continuous(phenotype = "tdp43", category= "continuous")
