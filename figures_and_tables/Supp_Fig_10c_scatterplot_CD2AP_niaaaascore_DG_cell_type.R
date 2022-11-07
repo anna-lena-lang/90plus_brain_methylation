@@ -1,5 +1,5 @@
 
-## code to plot SupFig 10b: Scatterplot for CD2AP in dentate gyrus (DG) 
+## code to plot SupFig 10c: Scatterplot for CD2AP in dentate gyrus (DG) 
 ## for all cell types
 
 library(cowplot)
