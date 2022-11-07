@@ -73,7 +73,7 @@ dm_barplot_by_score_DG_CG <- function(biotype = "promoters", phenotypes, celltyp
   big_df$dms_label <- NA
   big_df$dms_label[big_df$number_of_sig_dms > 0] <- big_df$number_of_sig_dms[big_df$number_of_sig_dms > 0]
   
-  colorblind_celltype <- c("#000000", "#648FFF", "#FE6100", "#785EF0", "#FFB000")
+  colorblind_celltype <- c("#000000", "#648FFF", "#FE6100", "#52E764", "#FFB000")
   ## remove data where celltype proportions were low
   datatokeep <- read.csv("~/90plus/cleaned_mvals/cleaned_mvals_episcore/episcore_data_to_keep/data_to_keep.csv")
   big_df <- big_df[big_df$data_to_keep %in% datatokeep$keep,]
