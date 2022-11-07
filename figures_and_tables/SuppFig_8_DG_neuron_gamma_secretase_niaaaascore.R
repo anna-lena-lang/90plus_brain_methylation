@@ -1,4 +1,4 @@
-## Plot SuppFig 7, Figure of neurons in the dentate gyrus, gamma secretase
+## Plot SuppFig 8, Figure of neurons in the dentate gyrus, gamma secretase
 
 library(cowplot)
 library(magrittr)
