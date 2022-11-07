@@ -1,4 +1,4 @@
-## Supp Figure 11b
+## Supp Figure 11c
 ## plot CD2AP for all brain regions, neurons only
 library(cowplot)
 library(magrittr)
