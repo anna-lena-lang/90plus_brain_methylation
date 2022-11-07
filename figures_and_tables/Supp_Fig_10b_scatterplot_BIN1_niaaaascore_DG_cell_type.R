@@ -1,5 +1,5 @@
 
-## code to plot Additional Figure X: Scatterplot for BIN1 in dentate gyrus (DG) 
+## code to plot Supp_Fig_10b: Scatterplot for BIN1 in dentate gyrus (DG) 
 ## for all cell types
 
 library(cowplot)
@@ -9,7 +9,7 @@ library(Cairo)
 library(RnBeads)
 library(biomaRt)
 
-setwd("O:/02182022_backup_Lena/90plus")
+setwd("~/90plus")
 baseDir <- getwd()
 
 ## set up ensembl mart
@@ -36,7 +36,7 @@ bulk_promoters_BIN1 <- bulk_promoters[BIN1,]
 bulk_promoters_BIN1 <- rnb.mval2beta(bulk_promoters_BIN1)
 bulk_promoters_BIN1_df <- tibble(sample_name = names(bulk_promoters_BIN1), Methylation = bulk_promoters_BIN1, celltype = "BIN1 DG Bulk",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_bulk_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_bulk_promoters_DEN.csv"))
 IDs <- raw_results$ensembl_gene_id
 genes_with_description <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","gene_biotype","description"), filters = 'ensembl_gene_id',values= IDs, mart=ensemblHuman)
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
@@ -51,7 +51,7 @@ neuron_promoters_BIN1 <- neuron_promoters[BIN1,]
 neuron_promoters_BIN1 <- rnb.mval2beta(neuron_promoters_BIN1)
 neuron_promoters_BIN1_df <- tibble(sample_name = names(neuron_promoters_BIN1), Methylation = neuron_promoters_BIN1, celltype = "BIN1 DG Neuron **", sig_color= "sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_BIN1 <- raw_results %>% filter(raw_results$external_gene_name == 'BIN1')
 raw_BIN1 <- raw_BIN1 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -64,7 +64,7 @@ astro_promoters_BIN1 <- astro_promoters[BIN1,]
 astro_promoters_BIN1 <- rnb.mval2beta(astro_promoters_BIN1)
 astro_promoters_BIN1_df <- tibble(sample_name = names(astro_promoters_BIN1), Methylation = astro_promoters_BIN1, celltype = "BIN1 DG Astrocytes",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_astro_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_astro_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_BIN1 <- raw_results %>% filter(raw_results$external_gene_name == 'BIN1')
 raw_BIN1 <- raw_BIN1 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -77,7 +77,7 @@ oligo_opc_promoters_BIN1 <- oligo_opc_promoters[BIN1,]
 oligo_opc_promoters_BIN1 <- rnb.mval2beta(oligo_opc_promoters_BIN1)
 oligo_opc_promoters_BIN1_df <- tibble(sample_name = names(oligo_opc_promoters_BIN1), Methylation = oligo_opc_promoters_BIN1, celltype = "BIN1 DG Olig/OPCs",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_oligo_opc_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_oligo_opc_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_BIN1 <- raw_results %>% filter(raw_results$external_gene_name == 'BIN1')
 raw_BIN1 <- raw_BIN1 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -91,7 +91,7 @@ endo_promoters_BIN1 <- rnb.mval2beta(endo_promoters_BIN1)
 endo_promoters_BIN1_df <- tibble(sample_name = names(endo_promoters_BIN1), Methylation = endo_promoters_BIN1, celltype = "BIN1 DG Endothelial cells", sig_color= "not_sig") %>%
   left_join(targets)
 endo_promoters_BIN1_df$niaaaascore %<>% as.numeric
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_endo_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_endo_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_BIN1 <- raw_results %>% filter(raw_results$external_gene_name == 'BIN1')
 raw_BIN1 <- raw_BIN1 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -105,7 +105,7 @@ microglia_promoters_BIN1 <- rnb.mval2beta(microglia_promoters_BIN1)
 microglia_promoters_BIN1_df <- tibble(sample_name = names(microglia_promoters_BIN1), Methylation = microglia_promoters_BIN1, celltype = "BIN1 DG Microglia",sig_color= "not_sig") %>%
   left_join(targets)
 microglia_promoters_BIN1_df$niaaaascore %<>% as.numeric
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_microglia_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_microglia_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_BIN1 <- raw_results %>% filter(raw_results$external_gene_name == 'BIN1')
 raw_BIN1 <- raw_BIN1 %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
