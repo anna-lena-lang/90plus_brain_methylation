@@ -1,5 +1,5 @@
 
-## code to plot Additional Figure X: Scatterplot for CD2AP in dentate gyrus (DG) 
+## code to plot SupFig 10b: Scatterplot for CD2AP in dentate gyrus (DG) 
 ## for all cell types
 
 library(cowplot)
@@ -9,7 +9,7 @@ library(Cairo)
 library(RnBeads)
 library(biomaRt)
 
-setwd("O:/02182022_backup_Lena/90plus")
+setwd("~/90plus")
 baseDir <- getwd()
 
 ## set up ensembl mart
@@ -36,7 +36,7 @@ bulk_promoters_CD2AP <- bulk_promoters[CD2AP,]
 bulk_promoters_CD2AP <- rnb.mval2beta(bulk_promoters_CD2AP)
 bulk_promoters_CD2AP_df <- tibble(sample_name = names(bulk_promoters_CD2AP), Methylation = bulk_promoters_CD2AP, celltype = "CD2AP DG Bulk",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_bulk_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_bulk_promoters_DEN.csv"))
 IDs <- raw_results$ensembl_gene_id
 genes_with_description <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","gene_biotype","description"), filters = 'ensembl_gene_id',values= IDs, mart=ensemblHuman)
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
@@ -51,7 +51,7 @@ neuron_promoters_CD2AP <- neuron_promoters[CD2AP,]
 neuron_promoters_CD2AP <- rnb.mval2beta(neuron_promoters_CD2AP)
 neuron_promoters_CD2AP_df <- tibble(sample_name = names(neuron_promoters_CD2AP), Methylation = neuron_promoters_CD2AP, celltype = "CD2AP DG Neuron **", sig_color= "sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CD2AP <- raw_results %>% filter(raw_results$external_gene_name == 'CD2AP')
 raw_CD2AP <- raw_CD2AP %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -64,7 +64,7 @@ astro_promoters_CD2AP <- astro_promoters[CD2AP,]
 astro_promoters_CD2AP <- rnb.mval2beta(astro_promoters_CD2AP)
 astro_promoters_CD2AP_df <- tibble(sample_name = names(astro_promoters_CD2AP), Methylation = astro_promoters_CD2AP, celltype = "CD2AP DG Astrocytes",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_astro_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_astro_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CD2AP <- raw_results %>% filter(raw_results$external_gene_name == 'CD2AP')
 raw_CD2AP <- raw_CD2AP %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -77,7 +77,7 @@ oligo_opc_promoters_CD2AP <- oligo_opc_promoters[CD2AP,]
 oligo_opc_promoters_CD2AP <- rnb.mval2beta(oligo_opc_promoters_CD2AP)
 oligo_opc_promoters_CD2AP_df <- tibble(sample_name = names(oligo_opc_promoters_CD2AP), Methylation = oligo_opc_promoters_CD2AP, celltype = "CD2AP DG Olig/OPCs",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_oligo_opc_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_oligo_opc_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CD2AP <- raw_results %>% filter(raw_results$external_gene_name == 'CD2AP')
 raw_CD2AP <- raw_CD2AP %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -91,7 +91,7 @@ endo_promoters_CD2AP <- rnb.mval2beta(endo_promoters_CD2AP)
 endo_promoters_CD2AP_df <- tibble(sample_name = names(endo_promoters_CD2AP), Methylation = endo_promoters_CD2AP, celltype = "CD2AP DG Endothelial cells", sig_color= "not_sig") %>%
   left_join(targets)
 endo_promoters_CD2AP_df$niaaaascore %<>% as.numeric
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_endo_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_endo_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CD2AP <- raw_results %>% filter(raw_results$external_gene_name == 'CD2AP')
 raw_CD2AP <- raw_CD2AP %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -105,7 +105,7 @@ microglia_promoters_CD2AP <- rnb.mval2beta(microglia_promoters_CD2AP)
 microglia_promoters_CD2AP_df <- tibble(sample_name = names(microglia_promoters_CD2AP), Methylation = microglia_promoters_CD2AP, celltype = "CD2AP DG Microglia",sig_color= "not_sig") %>%
   left_join(targets)
 microglia_promoters_CD2AP_df$niaaaascore %<>% as.numeric
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_microglia_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_microglia_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CD2AP <- raw_results %>% filter(raw_results$external_gene_name == 'CD2AP')
 raw_CD2AP <- raw_CD2AP %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
