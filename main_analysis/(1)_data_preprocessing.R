@@ -39,15 +39,16 @@ clean_samplesheet <- function(targets){
   ## remove several batches that failed due to scanner problems
   targets <<- targets %>% 
     filter(!batch %in% c("2018_12_05","2018_12_11","2019_01_17", "2019_02_11", "2019_03_01")) %>%
-    ## remove cases 118, 2517, 4017, 4818,5118, 5418
-    filter(!sample_source %in% c("UCI118","UCI2517", "UCI417", "UCI4017", "UCI4818", "UCI3618","UCI5118", "UCI5418")) %>%
-    ## UCI118, UCI3618 not all FFPE blocks were available for processing - full cases excluded
-    ## UCI2517CBM sample with high delta ct in qPCR, full case excluded
-    ## UCI417 samples with high delta ct in qPCR, full case excluded
-    ## UCI4017 case with potential Parkinsons Disease and infarction, full case excluded
-    ## UCI4818 case with Parkinsons Disease, full case excluded
-    ## UCI5118 case with Glioma, full case excluded
-    ## UCI5418 case with massive hemorrhage, full case excluded
+    ## remove cases participant_48, participant_49, participant_50,participant_51,participant_52,participant_53,participant_54,participant_55
+    filter(!sample_source %in% c("participant_48", "participant_49", "participant_50","participant_51","participant_52",
+                                 "participant_53","participant_54","participant_55")) %>%
+    ## participant_48, participant_53 not all FFPE blocks were available for processing - full cases excluded
+    ## participant_49_CBM sample with high delta ct in qPCR, full case excluded
+    ## participant_50 samples with high delta ct in qPCR, full case excluded
+    ## participant_51 case with potential Parkinsons Disease and infarction, full case excluded
+    ## participant_52 case with Parkinsons Disease, full case excluded
+    ## participant_54 case with Glioma, full case excluded
+    ## participant_55 case with massive hemorrhage, full case excluded
     ## only keep samples from 8 brain regions, remove all samples  from other projects
     filter(brain_region %in% c("MFG", "CG", "CA1", "DG", "EC", "LC", "SN", "CBM"))
   
@@ -229,7 +230,7 @@ qualitycontrol_samples <- function(targets , rgset){
   low_q_samples <- list()
   ## define and remove samples that did not show beta value distribution in density plots
   print(paste0("sample number : ", nrow(targets), " Now removing samples with bad density plots")) ## printing numbers is just for my protocol + downstream overview.
-  bad_density <- c("UCI1817Lx","UCI2017N_tR_04_samerun_otherchip", "UCI617J2", targets$sample_name[targets$batch == "Batch_9"])
+  bad_density <- c("participant_7_Lx","participant_10_N_tR_04_samerun_otherchip", "participant_45_J2", targets$sample_name[targets$batch == "Batch_9"])
   rgset <- rgset[, !(colnames(rgset) %in% bad_density)]
   t_old <- targets
   targets <- targets[targets$sample_name %in% colnames(rgset), ]
@@ -238,7 +239,7 @@ qualitycontrol_samples <- function(targets , rgset){
   print(paste0("sample number : ", nrow(targets), "Now removing samples with bisulfite conversion efficiency < 80%"))
   bsc <- bscon(rgset) ## checks bisulfite conversion efficiency
   bsc <- as.data.frame(bsc)
-  bad_bsc <- rownames(bsc)[bsc$bsc < 80] ## remove samples with bc efficiency <80% = "UCI4117F"
+  bad_bsc <- rownames(bsc)[bsc$bsc < 80] ## remove samples with bc efficiency <80% = "participant_28_F"
   rgset <- rgset[ ,!(colnames(rgset) %in% bad_bsc)]
   t_old <- targets
   targets <- targets[targets$sample_name %in% colnames(rgset), ]
@@ -248,7 +249,7 @@ qualitycontrol_samples <- function(targets , rgset){
   ## snp heatmap: manually removing snp outliers as seen in heatmaps from snp_heatmap_bysourc
   snp_heatmap_bysource(rgset) ## prints all heatmaps by sample source (=individual donor/patient) in one pdf
   print("removing samples that don't match snp heatmap pattern of samples from same donor")
-  bad_snp <- c("UCI617J2_redoBatch4fail", "UCI618J2", "UCI1618TERx", "UCI1818DG", "UCI2017CA1", "UCI4118CA1_tR01")
+  bad_snp <- c("participant_45_J2_redoBatch4fail", "participant_46_J2", "participant_6_TERx", "participant_8_DG", "participant_10_CA1", "participant_56_CA1_tR01")
   rgset <- rgset[, !(colnames(rgset) %in% bad_snp)]
   t_old <- targets
   targets <- targets[targets$sample_name %in% colnames(rgset), ]
