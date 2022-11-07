@@ -1,4 +1,4 @@
-## code to plot Additional Figure X: Scatterplot for CLTA in dentate gyrus (DG) 
+## code to plot SuppFigure 10a: Scatterplot for CLTA in dentate gyrus (DG) 
 ## for all cell types
 
 library(cowplot)
@@ -35,7 +35,7 @@ bulk_promoters_CLTA <- bulk_promoters[CLTA,]
 bulk_promoters_CLTA <- rnb.mval2beta(bulk_promoters_CLTA)
 bulk_promoters_CLTA_df <- tibble(sample_name = names(bulk_promoters_CLTA), Methylation = bulk_promoters_CLTA, celltype = "CLTA DG Bulk",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_bulk_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_bulk_promoters_DEN.csv"))
 IDs <- raw_results$ensembl_gene_id
 genes_with_description <- getBM(attributes = c("ensembl_gene_id", "external_gene_name","gene_biotype","description"), filters = 'ensembl_gene_id',values= IDs, mart=ensemblHuman)
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
@@ -50,7 +50,7 @@ neuron_promoters_CLTA <- neuron_promoters[CLTA,]
 neuron_promoters_CLTA <- rnb.mval2beta(neuron_promoters_CLTA)
 neuron_promoters_CLTA_df <- tibble(sample_name = names(neuron_promoters_CLTA), Methylation = neuron_promoters_CLTA, celltype = "CLTA DG Neuron **", sig_color= "sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_neuron_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CLTA <- raw_results %>% filter(raw_results$external_gene_name == 'CLTA')
 raw_CLTA <- raw_CLTA %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -63,7 +63,7 @@ astro_promoters_CLTA <- astro_promoters[CLTA,]
 astro_promoters_CLTA <- rnb.mval2beta(astro_promoters_CLTA)
 astro_promoters_CLTA_df <- tibble(sample_name = names(astro_promoters_CLTA), Methylation = astro_promoters_CLTA, celltype = "CLTA DG Astrocytes",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_astro_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_astro_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CLTA <- raw_results %>% filter(raw_results$external_gene_name == 'CLTA')
 raw_CLTA <- raw_CLTA %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -76,7 +76,7 @@ oligo_opc_promoters_CLTA <- oligo_opc_promoters[CLTA,]
 oligo_opc_promoters_CLTA <- rnb.mval2beta(oligo_opc_promoters_CLTA)
 oligo_opc_promoters_CLTA_df <- tibble(sample_name = names(oligo_opc_promoters_CLTA), Methylation = oligo_opc_promoters_CLTA, celltype = "CLTA DG Olig/OPCs",sig_color= "not_sig") %>%
   left_join(targets)
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_oligo_opc_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_oligo_opc_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CLTA <- raw_results %>% filter(raw_results$external_gene_name == 'CLTA')
 raw_CLTA <- raw_CLTA %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -90,7 +90,7 @@ endo_promoters_CLTA <- rnb.mval2beta(endo_promoters_CLTA)
 endo_promoters_CLTA_df <- tibble(sample_name = names(endo_promoters_CLTA), Methylation = endo_promoters_CLTA, celltype = "CLTA DG Endothelial cells", sig_color= "not_sig") %>%
   left_join(targets)
 endo_promoters_CLTA_df$niaaaascore %<>% as.numeric
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_endo_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_endo_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CLTA <- raw_results %>% filter(raw_results$external_gene_name == 'CLTA')
 raw_CLTA <- raw_CLTA %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
@@ -104,7 +104,7 @@ microglia_promoters_CLTA <- rnb.mval2beta(microglia_promoters_CLTA)
 microglia_promoters_CLTA_df <- tibble(sample_name = names(microglia_promoters_CLTA), Methylation = microglia_promoters_CLTA, celltype = "CLTA DG Microglia",sig_color= "not_sig") %>%
   left_join(targets)
 microglia_promoters_CLTA_df$niaaaascore %<>% as.numeric
-raw_results <- read.csv(paste0("O:/02182022_backup_Lena/90plus/dm_results/continuous/raw/raw_niaaaascore_microglia_promoters_DEN.csv"))
+raw_results <- read.csv(paste0("~/90plus/dm_results/continuous/raw/raw_niaaaascore_microglia_promoters_DEN.csv"))
 raw_results <- merge(x = raw_results,y = genes_with_description, by = "ensembl_gene_id",all.x=TRUE)
 raw_CLTA <- raw_results %>% filter(raw_results$external_gene_name == 'CLTA')
 raw_CLTA <- raw_CLTA %>% dplyr::select("ensembl_gene_id", "adj.P.Val")
