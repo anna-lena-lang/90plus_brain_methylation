@@ -8,3 +8,7 @@ Manuscript was published in Acta Neuropathologica Communications, https://doi.or
 - **main_analysis**: contains all scripts from data preprocessing to differential methylation analysis
 - **figures_and_tables**: contains all scripts to reproduce tables and plots included in the publication, numbered accordingly
 - **functions**: contains functions used in other scripts
+
+
+To cite this repo or article 
+Lang, AL., Eulalio, T., Fox, E. et al. Methylation differences in Alzheimer’s disease neuropathologic change in the aged human brain. acta neuropathol commun 10, 174 (2022). https://doi.org/10.1186/s40478-022-01470-0
